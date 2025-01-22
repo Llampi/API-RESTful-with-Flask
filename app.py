@@ -11,16 +11,20 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
 
-# Importar modelos y rutas después de inicializar db y app
-from models import User
-from routes import api_bp
-app.register_blueprint(api_bp)
 
-# Swagger
+#from models import User
+#from routes import api_bp
+#app.register_blueprint(api_bp)
+
+
 SWAGGER_URL = "/swagger"
 API_URL = "/static/swagger.json"
 swagger_ui_blueprint = get_swaggerui_blueprint(SWAGGER_URL, API_URL)
 app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
 
 if __name__ == "__main__":
+    from models import User
+    from routes import api_bp
+    app.register_blueprint(api_bp)
+
     app.run(debug=True)
